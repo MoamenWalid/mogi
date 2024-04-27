@@ -3,6 +3,8 @@ mogi up -b <branch|master> -m <branch|'commit'>
 1) mogi up -> branch = master | commit = 'commit'
 2) mogi up -b ref -> branch = ref | commit = 'ref'
 3) mogi up -b ref -m 'first-commit'
+
+````
 make:
   git add .
   if <branch>
@@ -17,3 +19,4 @@ make:
    exit()
   else 
   git push origin base_branch
+````
