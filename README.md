@@ -1,9 +1,9 @@
 
 mogi up -b <branch|master> -m <branch|'commit'><br>
 using:
-  - **`mogi up -> branch = master | commit = 'commit'`**
-  - **`mogi up -b ref -> branch = ref | commit = 'ref'`**
-  - **`mogi up -b ref -m 'first-commit'`**
+**`mogi up -> branch = master | commit = 'commit'`**
+**`mogi up -b ref -> branch = ref | commit = 'ref'`**
+**`mogi up -b ref -m 'first-commit'`**
 
 ````
 make:
