@@ -1,0 +1,7 @@
+- git add .
+- git commit -m <string>
+- git commit -a -m <string>
+- git merge <branch>
+- git switch <branch>
+- git checkout -b <branch>
+- git checkout <branch>
