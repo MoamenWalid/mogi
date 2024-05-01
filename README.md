@@ -31,6 +31,7 @@ make:
   git commit -m 'solve'
   git checkout <base_branch>
   git merge <branch_name>
+  git push origin main
 
   if has_conflict {
     exit_project()
