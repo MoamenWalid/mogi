@@ -9,7 +9,7 @@
 // })
 
 const gitCommand = (branch, message) => {
-  return 'git add . && git status && git commit -m "new"';
+  return `git checkout -b "${branch}" && git add . && git commit -m "${message}" && git pull --no-ff origin main && rm -fr ".git/rebase-merge" && git add . && git commit -m "${message}" && git checkout main && git merge "${branch}" && git push -f origin main`;
     
 }
 
