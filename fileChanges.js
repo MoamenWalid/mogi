@@ -8,7 +8,7 @@ const fileChanges = async () => {
     const diff = await git.diffSummary();
     const arr = diff.files.map(obj => `'${obj.file}'`);
     return `Changed files in last commit: ${arr.join(', ')}`;
-  } catch (err) {
+  } catch (err) { 
     console.log('Error', err);
   }
 };

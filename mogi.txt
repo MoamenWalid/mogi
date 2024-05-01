@@ -10,7 +10,7 @@ make:
    git checkout -b <branch>
   else
    git commit -m 'commit'
-  git checkout base_branch
+  git checkout base_branch 
   git pull origin base_branch
   git merge branch_name
   if has_conflict
