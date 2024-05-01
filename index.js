@@ -31,12 +31,12 @@ program.command('up')
     console.log(command);
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error: ${error.message}`);
+        console.error(`Error 1: ${error.message}`);
         return;
       }
 
       if (stderr) {
-        console.error(`Error: ${stderr}`);
+        console.error(`Error 2: ${stderr}`);
         return;
       }
 
