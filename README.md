@@ -28,6 +28,9 @@ make:
   if 
 
   git pull --no-ff origin <base_brach>
+  rm -fr ".git/rebase-merge"
+  git add .
+  git commit -m 'solve'
   git checkout <base_branch>
   git merge <branch_name>
 
@@ -35,7 +38,7 @@ make:
     exit_project()
   }
 
-  else {a
+  else {
     git push origin base_branch
   }
 ````
