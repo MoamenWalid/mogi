@@ -6,7 +6,6 @@ using:
 3) **`mogi up -b ref -m 'first-commit'`**
 
 ````
-
 make:
   if <branch> {
     git checkout -b <branch>
