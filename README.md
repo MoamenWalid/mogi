@@ -25,8 +25,6 @@ make:
     git commit -m 'We have change in <files_change>'
   }
 
-  if 
-
   git pull --no-ff origin <base_brach>
   rm -fr ".git/rebase-merge"
   git add .
