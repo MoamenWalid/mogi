@@ -1,3 +1,4 @@
+
 import simpleGit from 'simple-git';
 
 const repoPath = process.cwd();
@@ -7,7 +8,7 @@ const fileChanges = async () => {
   try {
     const diff = await git.diffSummary();
     const arr = diff.files.map(obj => `'${obj.file}'`);
-    return `Changed files in last commit: ${arr.join(', ')}`;
+    return `Changed files in last commit: [${arr.join(', ')}]`;
   } catch (err) { 
     console.log('Error', err);
   }
@@ -16,11 +17,10 @@ const fileChanges = async () => {
 const getFiles = async(obj) => {
   try {
     const changes = await fileChanges();
-    obj.message = changes;
-    console.log(obj);
+    obj.message = `${changes} in ${obj.branch} branch`;
   } catch (err) {
     console.error('Error:', err);
   }
 };
 
-export { getFiles };
+  export { getFiles };
