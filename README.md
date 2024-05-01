@@ -1,24 +1,30 @@
 
-mogi up -b <branch|master> -m <branch|'commit'><br>
+mogi up -b <branch|random_branch> -m <comment|files_change><br>
 using:
 1) **`mogi up -> branch = master | commit = 'commit'`**
 2) **`mogi up -b ref -> branch = ref | commit = 'ref'`**
 3) **`mogi up -b ref -m 'first-commit'`**
 
 ````
-make-
-  git add .
-
+make
   if <branch> {
-    git commit -m <branch>
     git checkout -b <branch>
   }
 
   else {
-    git commit -m 'commit'
+    git checkout -b <random_branch>
   }
 
-  git checkout base_branch
+  git add .
+
+  if <comment> {
+    git commit -m <comment>
+  }
+
+  else {
+    git commit -m 'We have change in <files_change>'
+  }
+
   git pull origin base_branch
   git merge branch_name
 
