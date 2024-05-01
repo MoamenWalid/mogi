@@ -1,12 +1,12 @@
 
 mogi up -b <branch|random_branch> -m <comment|files_change><br>
 using:
-1) **`mogi up -> branch = master | commit = 'commit'`**
-2) **`mogi up -b ref -> branch = ref | commit = 'ref'`**
-3) **`mogi up -b ref -m 'first-commit'`**
+1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
+2) **`mogi up -b ref -> branch = ref | commit = <files_change>`**
+3) **`mogi up -b ref -m 'first commit' -> branch = ref | commit = 'first commit'`**
 
 ````
-how it work:
+How it work:
   if <branch> {
     git checkout -b <branch>
   }
