@@ -6,7 +6,7 @@ using:
 3) **`mogi up -b ref -m 'first-commit'`**
 
 ````
-make:
+how it work:
   if <branch> {
     git checkout -b <branch>
   }
@@ -31,13 +31,5 @@ make:
   git commit -m 'solve'
   git checkout <base_branch>
   git merge <branch_name>
-  git push origin main
-
-  if has_conflict {
-    exit_project()
-  }
-
-  else {
-    git push origin base_branch
-  }
+  git push origin <base_branch>
 ````
