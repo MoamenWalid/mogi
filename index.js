@@ -28,7 +28,6 @@ program.command('up')
     if (!obj.hasOwnProperty('message')) await getFiles(obj);
 
     const command = gitCommand(obj.branch, obj.message);
-    console.log(command);
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
