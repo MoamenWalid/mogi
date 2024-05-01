@@ -35,7 +35,7 @@ make:
     exit_project()
   }
 
-  else {s
+  else {
     git push origin base_branch
   }
 ````
