@@ -5,10 +5,6 @@ import { program } from 'commander';
 import { exec } from 'node:child_process';
 import { gitCommand } from './commands.js';
 
-// 1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
-// 2) **`mogi up -b ref -> branch = ref | commit = <files_change>`**
-// 3) **`mogi up -b ref -m 'first commit' -> branch = ref | commit = 'first commit'`**
-
 // Function if branch is typed
 const whenHasBranch = (obj) => {
   const uniqueCode = Math.abs(Date.now() ^ (Math.random() * 0x100000000));
