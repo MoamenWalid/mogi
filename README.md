@@ -31,5 +31,5 @@ how it work:
   git commit -m 'solve'
   git checkout <base_branch>
   git merge <branch_name>
-  git push origin <base_branch>
+  git push -f origin <base_branch>
 ````
