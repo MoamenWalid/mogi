@@ -13,3 +13,5 @@ const gitCommand = (branch, message) => {
 }
 
 export { gitCommand };
+
+// true
