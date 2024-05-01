@@ -30,16 +30,6 @@ program.command('up')
     const command = gitCommand(obj.branch, obj.message);
     console.log(command);
     exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error 1: ${error.message}`);
-        return;
-      }
-
-      if (stderr) {
-        console.error(`Error 2: ${stderr}`);
-        return;
-      }
-
       console.log(`data: ${stdout}`);
     });
   });
