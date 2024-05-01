@@ -9,7 +9,7 @@
 // })
 
 const gitCommand = (branch, message) => {
-  return `git checkout -b "${branch}" && git add . && git commit -m "${message}" && git checkout main && git merge ${branch} && git push orgin main`;
+  return `git checkout -b "${branch}" && git add . && git commit -m "${message}" && git checkout main && git merge ${branch} && git push origin main`;
 }
 
 export { gitCommand };
