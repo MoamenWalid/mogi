@@ -24,7 +24,6 @@ program.command('up')
     if (!obj.hasOwnProperty('message')) await getFiles(obj);
 
     const commands = gitCommand(obj.branch, obj.message);
-    console.log(commands);
     commands.forEach(command => {
       exec(command, (error, stdout, stderr) => {
         console.log(stdout);
