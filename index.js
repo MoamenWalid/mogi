@@ -23,11 +23,13 @@ program.command('up')
     if (!obj.hasOwnProperty('branch')) whenHasBranch(obj);
     if (!obj.hasOwnProperty('message')) await getFiles(obj);
 
-    const command = gitCommand(obj.branch, obj.message);
-    console.log(command);
-    exec(command, (error, stdout, stderr) => {
-      console.log(`data: ${stdout}`);
-    });
+    const commands = gitCommand(obj.branch, obj.message);
+    console.log(commands);
+    commands.forEach(command => {
+      exec(command, (error, stdout, stderr) => {
+        console.log(`data: ${stdout}`);
+      });
+    })
   });
 
 program.parse();
