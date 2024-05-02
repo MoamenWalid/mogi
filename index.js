@@ -37,7 +37,7 @@ program.command('up')
             return;
           }
 
-          console.log('Success ✅', stdout);
+          if (stdout) console.log('Success ✅', stdout);
         });
       })
     })
