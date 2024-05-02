@@ -27,7 +27,7 @@ program.command('up')
     console.log(commands);
     commands.forEach(command => {
       exec(command, (error, stdout, stderr) => {
-        console.log(`data: ${stdout}`);
+        console.log(stdout);
       });
     })
   });
