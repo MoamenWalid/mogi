@@ -4,6 +4,9 @@ import { getFiles } from './fileChanges.js';
 import { program } from 'commander';
 import { exec } from 'node:child_process';
 import { gitCommand } from './commands.js';
+import { simpleGit } from 'simple-git';
+
+const git = simpleGit();
 
 // Function if branch is typed
 const whenHasBranch = (obj) => {
@@ -23,11 +26,15 @@ program.command('up')
     if (!obj.hasOwnProperty('branch')) whenHasBranch(obj);
     if (!obj.hasOwnProperty('message')) await getFiles(obj);
 
-    const commands = gitCommand(obj.branch, obj.message);
-    commands.forEach(command => {
-      exec(command, (error, stdout, stderr) => {
-        console.log(stdout);
-      });
+    git.branch((err, branches) => {
+      const mainBranch = branches.all.find(branch => branch === 'main' || branch === 'master');
+      const commands = gitCommand(mainBranch, obj.branch, obj.message);
+
+      commands.forEach(command => {
+        exec(command, (error, stdout, stderr) => {
+          console.log(stdout);
+        });
+      })
     })
   });
 
