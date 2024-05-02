@@ -5,7 +5,6 @@ import { gitCommand } from './commands.js';
 import { simpleGit } from 'simple-git';
 
 const git = simpleGit();
-let b = '';
 
 // Function if branch isn't exist
 const whenNotBranch = (obj) => {
@@ -32,11 +31,10 @@ program.command('up')
       }
 
       const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
-      b = mainBranch;
       const commands = gitCommand(mainBranch, obj.branch, obj.message);
 
       commands.forEach(command => {
-        exec(command, (err, stdout, stderr) => {
+        exec(command, (stdout) => {
           console.log(stdout);
         });
       })
