@@ -7,10 +7,7 @@ import { simpleGit } from 'simple-git';
 const git = simpleGit();
 
 // Function if branch isn't exist
-const whenNotBranch = (obj) => {
-  const uniqueCode = Math.abs(Date.now() ^ (Math.random() * 0x100000000));
-  obj.branch = uniqueCode;
-}
+const randBranch = (obj) => obj.branch = Math.abs(Date.now() ^ (Math.random() * 0x100000000));
 
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
@@ -21,7 +18,7 @@ program.command('up')
   .option('-b, --branch <branch>', 'name of branch')
   .option('-m, --message <message>', 'message when commit')
   .action(async (obj) => {
-    if (!obj.branch) whenNotBranch(obj);
+    if (!obj.branch) randBranch(obj);
     if (!obj.message) await getFilesToCommit(obj);
 
     git.branch((err, { all: branches }) => {
@@ -35,6 +32,12 @@ program.command('up')
 
       commands.forEach(command => {
         exec(command, (err, stdout) => {
+          if (err) {
+            console.error('Error Happen ❌:', err);
+            return;
+          }
+
+          console.log('Success ✅');
           console.log(stdout);
         });
       })

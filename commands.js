@@ -1,5 +1,5 @@
 
-
+// func to return all comands we want to git, github
 const gitCommand = (mainBranch, branch, message) => {
   return [
     `git checkout -b "${branch}"`,

@@ -7,10 +7,10 @@ const git = simpleGit(repoPath);
 const fileChanges = async () => {
   try {
     const diff = await git.diffSummary();
-    const arr = diff.files.map(obj => `'${obj.file}'`);
-    return `Changed files in last commit: [${arr.join(', ')}]`;
+    const arrFilesChanges = diff.files.map(obj => `'${obj.file}'`);
+    return `Changed files in last commit: [${arrFilesChanges.join(', ')}]`;
   } catch (err) { 
-    console.log('Error', err);
+    console.error('Error', err);
   }
 };
 
