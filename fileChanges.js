@@ -14,7 +14,7 @@ const fileChanges = async () => {
   }
 };
 
-const getFiles = async(obj) => {
+const getFilesToCommit = async(obj) => {
   try {
     const changes = await fileChanges();
     obj.message = `${changes} in ${obj.branch} branch`;
@@ -23,4 +23,4 @@ const getFiles = async(obj) => {
   }
 };
 
-  export { getFiles };
+  export { getFilesToCommit };

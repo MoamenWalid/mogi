@@ -1,15 +1,14 @@
-import * as fs from 'node:fs';
-import inquirer from 'inquirer';
-import { getFiles } from './fileChanges.js';
+import { getFilesToCommit } from './fileChanges.js';
 import { program } from 'commander';
 import { exec } from 'node:child_process';
 import { gitCommand } from './commands.js';
 import { simpleGit } from 'simple-git';
 
 const git = simpleGit();
+let b = '';
 
-// Function if branch is typed
-const whenHasBranch = (obj) => {
+// Function if branch isn't exist
+const whenNotBranch = (obj) => {
   const uniqueCode = Math.abs(Date.now() ^ (Math.random() * 0x100000000));
   obj.branch = uniqueCode;
 }
@@ -23,15 +22,21 @@ program.command('up')
   .option('-b, --branch <branch>', 'name of branch')
   .option('-m, --message <message>', 'message when commit')
   .action(async (obj) => {
-    if (!obj.hasOwnProperty('branch')) whenHasBranch(obj);
-    if (!obj.hasOwnProperty('message')) await getFiles(obj);
+    if (!obj.branch) whenNotBranch(obj);
+    if (!obj.message) await getFilesToCommit(obj);
 
-    git.branch((err, branches) => {
-      const mainBranch = branches.all.find(branch => branch === 'main' || branch === 'master');
+    git.branch((err, { all: branches }) => {
+      if (err) {
+        console.log('Error ', err);
+        return;
+      }
+
+      const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
+      b = mainBranch;
       const commands = gitCommand(mainBranch, obj.branch, obj.message);
 
       commands.forEach(command => {
-        exec(command, (error, stdout, stderr) => {
+        exec(command, (err, stdout, stderr) => {
           console.log(stdout);
         });
       })
