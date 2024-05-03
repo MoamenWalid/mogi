@@ -16,3 +16,5 @@ const gitCommand = (mainBranch, branch, message) => {
 }
 
 export { gitCommand };
+// commands.js
+// hello man
