@@ -10,6 +10,13 @@ const git = simpleGit();
 // Function if branch isn't exist
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
+// Delete branch created
+const deleteBranch = (branches) => {
+  if(branches.delete) {
+    exec(`git branch -d ${branches.delete}`);
+  }
+}
+
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
   .version('1.0.0'); 
@@ -18,6 +25,7 @@ program.command('up')
   .description('This base command to mogi start')
   .option('-b, --branch <branch>', 'name of branch')
   .option('-m, --message <message>', 'message when commit')
+  .option('-d, --delete', 'delete branch will make')
   .action(async (obj) => {
     if (!obj.branch) randBranch(obj);
     if (!obj.message) await getFilesToCommit(obj);
@@ -45,3 +53,4 @@ program.command('up')
   });
 
 program.parse();
+deleteBranch(program.opts());
