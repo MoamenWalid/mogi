@@ -37,11 +37,6 @@ program.command('up')
             return;
           }
 
-          if (stderr) {
-            console.error('Error Happen ❌❌:', stderr);
-            return;
-          }
-
           if (stdout) console.log('Success ✅', stdout);
         });
       })
