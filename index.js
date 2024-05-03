@@ -50,6 +50,8 @@ program.command('up')
           if (stdout) console.log('Success ✅', stdout);
         });
       })
+
+      if (obj.delete) exec(`git branch -d ${obj.branch}`);
     })
   });
 
