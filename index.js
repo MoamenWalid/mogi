@@ -14,6 +14,7 @@ const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 const deleteBranch = (branches) => {
   if(branches.delete) {
     exec(`git branch -d ${branches.delete}`);
+    console.log(branches);
   }
 }
 
