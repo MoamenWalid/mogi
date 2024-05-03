@@ -1,3 +1,4 @@
+import random from 'random-string-generator';
 import { getFilesToCommit } from './fileChanges.js';
 import { program } from 'commander';
 import { exec } from 'node:child_process';
@@ -7,7 +8,7 @@ import { simpleGit } from 'simple-git';
 const git = simpleGit();
 
 // Function if branch isn't exist
-const randBranch = (obj) => obj.branch = Math.abs(Date.now() ^ (Math.random() * 0x100000000));
+const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
