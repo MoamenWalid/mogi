@@ -54,4 +54,6 @@ program.command('up')
   });
 
 program.parse();
+const options = program.opts();
+console.log(options);
 deleteBranch(program.opts());
