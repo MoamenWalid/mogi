@@ -23,4 +23,4 @@ const getFilesToCommit = async(obj) => {
   }
 };
 
-  export { getFilesToCommit };
+export { getFilesToCommit };
