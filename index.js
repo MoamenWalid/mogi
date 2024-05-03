@@ -31,9 +31,14 @@ program.command('up')
       const commands = gitCommand(mainBranch, obj.branch, obj.message);
 
       commands.forEach(command => {
-        exec(command, (err, stdout) => {
+        exec(command, (err, stdout, stderr) => {
           if (err) {
             console.error('Error Happen ❌:', err);
+            return;
+          }
+
+          if (stderr) {
+            console.error('Error Happen ❌❌:', stderr);
             return;
           }
 
