@@ -48,4 +48,3 @@ program.command('up')
   });
 
 program.parse();
-// up
