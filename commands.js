@@ -17,3 +17,4 @@ const gitCommand = (mainBranch, obj) => {
 
 export { gitCommand };
 //
+34
