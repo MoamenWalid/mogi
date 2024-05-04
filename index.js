@@ -16,7 +16,7 @@ program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
   .version('1.1.0'); 
 
-program.command('up') 
+program.command('up')
   .description('This base command to mogi start')
   .option('-b, --branch <branch>', 'name of branch')
   .option('-m, --message <message>', 'message when commit')
