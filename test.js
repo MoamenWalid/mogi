@@ -1,13 +1,17 @@
-import { program } from 'commander';
+import simpleGit from 'simple-git';
 
-program
-  .option('--first')
-  .option('-s, --se <char>')
-  .action(() => {
-    console.log('hello Action');
-  })
+const git = simpleGit();
 
-program.parse();
-const options = program.opts();
+git.pull('--dry-run', (err, update) => {
+  if (err) {
+    console.error('Error pulling changes:', err);
+    return;
+  }
 
-console.log(options);
+  if (update && update.summary.changes) {
+    console.log('Pulled changes successfully:', update.summary.changes + ' files changed.');
+    console.log(update);
+  } else {
+    console.log('No new changes to pull.');
+  }
+})
