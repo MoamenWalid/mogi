@@ -25,6 +25,8 @@ program.command('up')
     if (!obj.branch) randBranch(obj);
     if (!obj.message) await getFilesToCommit(obj);
 
+    console.log('Your data is: ', obj);
+
     git.branch((err, { all: branches }) => {
       if (err) {
         console.log('Error ', err);
@@ -32,7 +34,6 @@ program.command('up')
       }
 
       const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
-      console.log(mainBranch, obj);
       const commands = gitCommand(mainBranch, obj);
 
       commands.forEach(command => {
