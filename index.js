@@ -10,14 +10,6 @@ const git = simpleGit();
 // Function if branch isn't exist
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
-// Delete branch created
-const deleteBranch = (branches) => {
-  if(branches.delete) {
-    exec(`git branch -d ${branches.delete}`);
-    console.log(branches);
-  }
-}
-
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
   .version('1.0.0'); 
