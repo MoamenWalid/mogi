@@ -32,6 +32,7 @@ program.command('up')
       }
 
       const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
+      console.log(mainBranch, obj);
       const commands = gitCommand(mainBranch, obj);
 
       commands.forEach(command => {
