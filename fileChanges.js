@@ -24,4 +24,3 @@ const getFilesToCommit = async(obj) => {
 };
 
 export { getFilesToCommit };
-// Abdo
