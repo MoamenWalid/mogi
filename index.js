@@ -36,7 +36,6 @@ program.command('up')
 
       commands.forEach(command => {
         exec(command, (err, stdout) => {
-
           if (stdout) console.log('Success ✅', stdout);
         });
       })
