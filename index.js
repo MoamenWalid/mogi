@@ -36,10 +36,10 @@ program.command('up')
 
       commands.forEach(command => {
         exec(command, (err, stdout) => {
-          if (err) {
-            console.error('Error Happen ❌:', err);
-            return;
-          }
+          // if (err) {
+          //   console.error('Error Happen ❌:', err);
+          //   return;
+          // }
 
           if (stdout) console.log('Success ✅', stdout);
         });
