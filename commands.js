@@ -16,5 +16,3 @@ const gitCommand = (mainBranch, obj) => {
 }
 
 export { gitCommand };
-// er
-// sd 
