@@ -5,13 +5,7 @@ const gitCommand = (mainBranch, obj) => {
     `git checkout -b "${obj.branch}"`,
     `git add .`,
     `git commit -m "${obj.message}"`,
-    `git checkout ${mainBranch}`,
-    `git merge "${obj.branch}"`,
-    `git pull --no-ff origin ${mainBranch}`,
-    `rm -fr ".git/rebase-merge"`,
-    `git add .`,
-    `git commit -m "${obj.message}"`,
-    `git push -f origin ${mainBranch}`
+    `git push origin ${mainBranch}`
   ]
 }
 
