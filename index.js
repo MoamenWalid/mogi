@@ -48,5 +48,3 @@ program.command('up')
   });
 
 program.parse();
-// up
-// ere
