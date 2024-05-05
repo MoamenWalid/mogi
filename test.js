@@ -12,29 +12,29 @@ const git = simpleGit();
 // فحص حالة المستودع المحلي
 git.status((err, statusSummary) => {
   if (err) {
-    console.error('حدث خطأ:', err);
+    console.error('Wrong:', err);
     return;
   }
 
   // تحقق من وجود تعديلات محلية غير مؤكدة
   if (statusSummary.files.length > 0) {
-    console.log('يوجد تعديلات محلية غير مؤكدة.');
+    console.log('Local need to commit');
     // يمكنك تنفيذ pull هنا إذا كان ذلك ضروريًا
   } else {
-    console.log('لا يوجد تعديلات محلية غير مؤكدة.');
+    console.log('Don"t want to commit');
 
     // تحقق من الفروع البعيدة للمستودع
     git.branch(['-r'], (err, branches) => {
       if (err) {
-        console.error('حدث خطأ:', err);
+        console.error('wrong:', err);
         return;
       }
 
       // تحقق من وجود تعديلات في المسار البعيد (remote)
       if (branches.all.some(branch => branch.includes('/main'))) {
-        console.log('يوجد تعديلات في المسار البعيد (remote). يُنصح بالقيام ب pull.');
+        console.log('Make pull');
       } else {
-        console.log('لا يوجد تعديلات في المسار البعيد (remote).');
+        console.log('Don"t make pull');
       }
     });
   }
