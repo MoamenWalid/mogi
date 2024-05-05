@@ -19,4 +19,4 @@
 - git revert <code_commit>
 
 - git pull and talk conflict happen
--------
+//a sdf
