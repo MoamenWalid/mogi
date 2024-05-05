@@ -7,29 +7,31 @@ using:
 
 ````
 How it work:
-  if <branch> {
-    git checkout -b <branch>
+  if <file_chnages> {
+    if <branch> {
+      git checkout -b <branch>
+    }
+
+    else {
+      git checkout -b <random_branch>
+    }
+
+    git add .
+    if <comment> {
+      git commit -m <comment>
+    }
+
+    else {
+      git commit -m 'We have change in <files_change>'
+    }
   }
 
-  else {
-    git checkout -b <random_branch>
+  if <files_to_pull> {
+    git pull --no-ff origin <base_brach>
+    rm -fr ".git/rebase-merge"
   }
 
-  git add .
-
-  if <comment> {
-    git commit -m <comment>
-  }
-
-  else {
-    git commit -m 'We have change in <files_change>'
-  }
-
-  git pull --no-ff origin <base_brach>
-  rm -fr ".git/rebase-merge"
-  git add .
-  git commit -m 'solve'
   git checkout <base_branch>
-  git merge <branch_name>
+  git merge <branch_name> ff ss
   git push -f origin <base_branch>
 ````
