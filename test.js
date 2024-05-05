@@ -9,7 +9,18 @@ import { gitCommand } from './commands.js';
 // إنشاء كائن simple-git
 const git = simpleGit();
 
+// جلب التحديثات من المسار البعيد
+git.fetch((err) => {
+  if (err) {
+    console.error('wrong', err);
+    return;
+  }
 
-git.status((err, status) => {
-  console.log(status.conflicted.length);
-})
+  git.diff(['HEAD', 'origin/main'], (err, changes) => {
+    if (changes) {
+      console.log('pull');
+    } else {
+      console.log('Not pull');
+    }
+  })
+});

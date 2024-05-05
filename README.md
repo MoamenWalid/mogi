@@ -6,7 +6,7 @@ using:
 
 ````
 How it work:
-  if <file_chnages> {
+  if <file_changes> {
     if <branch> {
       git checkout -b <branch>
     }
