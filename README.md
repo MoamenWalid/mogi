@@ -27,7 +27,7 @@ How it work:
   }
 
   if <files_to_pull> {
-    git pull --no-ff origin <base_brach>
+    git pull --no-ff origin <base_brach>  
     rm -fr ".git/rebase-merge"
     if <conflict_happen> {
       (after_solve_it) {
