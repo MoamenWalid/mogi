@@ -6,5 +6,3 @@ git.fetch('--dry-run', (err, fetchResult) => {
   console.log(err);
   console.log(fetchResult);
 });
-//asd
-//asf
