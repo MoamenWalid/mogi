@@ -22,6 +22,4 @@ const getFilesToCommit = async(obj) => {
   }
 };
 
-getFilesToCommit({});
-
 export { fileChanges, getFilesToCommit };
