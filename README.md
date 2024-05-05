@@ -26,13 +26,11 @@ How it work:
   }
 
   if <files_to_pull> {
-    git pull --no-ff origin <base_brach>  
+    git pull --no-ff --no-commit origin <base_brach>  
     rm -fr ".git/rebase-merge"
-    if <conflict_happen> {
-      (after_solve_it) {
-        git add .
-        git commit -m 'Greet jop to solve conflict ✅ <files_change>'
-      }
+    if <file_changes> {
+      git add .
+      git commit -m 'Greet jop to solve conflict ✅ <files_change>'
     }
   }
 
