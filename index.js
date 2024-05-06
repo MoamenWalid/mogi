@@ -37,7 +37,7 @@ program.command('up')
       
       // Check if have changes files
       if (diff.files.length) {
-        console.log('file changes');
+        console.log('file changes found!');
         for (const command of commands.inFilesChange) {
           exec(command, (err, stdout) => {
             if (stdout) console.log('Success ✅', stdout);
@@ -80,7 +80,7 @@ program.command('up')
             return;
           }
           if (!status.conflicted.length) {
-            console.log(`not exist conflict ✅`);
+            console.log(`Not exist conflict ✅`);
             for (const command of commands.inAll) {
               exec(command, (err, stdout) => {
                 if (stdout) console.log('Success ✅', stdout);
