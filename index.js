@@ -5,8 +5,10 @@ import { exec } from 'node:child_process';
 import { program } from 'commander';
 import { gitCommand } from './commands.js';
 import { getFilesToCommit } from './fileChanges.js';
+import { promisify } from 'node:util';
 
 const git = simpleGit();
+const ex = promisify(exec);
 
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
@@ -59,19 +61,27 @@ program.command('up')
         });
       });
 
-      const status = await git.status();
-      if (!status.conflicted.length) {
-        console.log(`Not exist conflict ✅`);
-        exec(`git checkout ${mainBranch}`, (err, stdout) => {
-          if (stdout) console.log('Succes to checkout main ✅', stdout);
-        });
-        exec(`git merge "${obj.branch}"`, (err, stdout) => {
-          if (stdout) console.log('Succes to merge data ✅', stdout);
-        });
-        exec(`git push -f origin ${mainBranch}`, (err, stdout) => {
-          if (stdout) console.log('Succes to push ✅', stdout);
-        });
+      async function mergePush(obj, mainBranch) {
+        try {
+          const status = await git.status();
+          if (!status.conflicted.length) {
+            console.log(`Not exist conflict ✅`);
+
+            await ex(`git checkout ${mainBranch}`);
+            console.log('Succes to checkout main ✅');
+
+            await ex(`git merge "${obj.branch}"`);
+            console.log('Succes to merge Data ✅');
+
+            await ex(`git push -f origin ${mainBranch}`);
+            console.log('Success to push data ✅');
+          }
+        } catch (error) {
+          console.error('Wrong Happen!', error);
+        }
       }
+
+      mergePush(obj, mainBranch);
 
     } catch (error) {
       console.error('Error Happen!', error); 
