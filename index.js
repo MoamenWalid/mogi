@@ -36,7 +36,6 @@ program.command('up')
         for (const command of commands.inFilesChange) {
           exec(command, (err, stdout) => {
             if (stdout) console.log('Success to commit changes ✅', stdout);
-            
           });
         }
       }
