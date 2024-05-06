@@ -7,9 +7,27 @@ import { program } from 'commander';
 import { getFilesToCommit } from './fileChanges.js';
 import { gitCommand } from './commands.js';
 
-const git = simpleGit();
 
+const localPath = process.cwd();
 
-git.status((err, status) => {
-  console.log(status.conflicted.length);
-})
+const git = simpleGit(localPath);
+
+git.fetch((err, fetchResult) => {
+  if (err) {
+    console.error('Error fetching remote changes:', err);
+    return;
+  }
+
+  git.diff(['FETCH_HEAD', 'HEAD'], (err, diff) => {
+    if (err) {
+      console.error('Error comparing changes:', err);
+      return;
+    }
+
+    if (diff) {
+      console.log('There are changes to be downloaded from remote.');
+    } else {
+      console.log('No changes to be downloaded from remote.');
+    }
+  });
+});
