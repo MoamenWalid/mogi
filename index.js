@@ -30,46 +30,46 @@ program.command('up')
       const diff = await git.diffSummary();
       const commands = gitCommand(mainBranch, obj);
 
-      if (diff.files.length) {
-        console.log(obj);
-        console.log('file changes found!');
-        for (const command of commands.inFilesChange) {
-          exec(command, (err, stdout) => {
-            if (stdout) console.log('one ✅', stdout);
-          });
-        }
-      }
+      // if (diff.files.length) {
+      //   console.log(obj);
+      //   console.log('file changes found!');
+      //   for (const command of commands.inFilesChange) {
+      //     exec(command, (err, stdout) => {
+      //       if (stdout) console.log('Success to commit changes ✅', stdout);
+      //     });
+      //   }
+      // }
 
       await new Promise((resolve, reject) => {
         git.fetch(async (err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          const data = await git.diff(['HEAD', 'origin/main']);
-          if (data) {
-            console.log('Changes detected. Pull is possible.');
-            for (const command of commands.inNeedPull) {
-              exec(command, (err, stdout) => {
-                if (stdout) console.log('two ✅', stdout);
-              });
-            }
-          } else {
-            console.log('No changes to pull.');
-          }
-          resolve();
+          if (err) reject(err);
+
+          const data = await git.diff('origin/main');
+          console.log(data);
+          // if (data) {
+          //   console.log('Changes detected. Pull is possible.');
+          //   for (const command of commands.inNeedPull) {
+          //     exec(command, (err, stdout) => {
+          //       if (stdout) console.log('two ✅', stdout);
+          //     });
+          //   }
+          // } else {
+          //   console.log('No changes to pull.');
+          // }
+          // resolve();
         });
       });
 
-      const status = await git.status();
-      if (!status.conflicted.length) {
-        console.log(`Not exist conflict ✅`);
-        for (const command of commands.inAll) {
-          exec(command, (err, stdout) => {
-            if (stdout) console.log('three ✅', stdout);
-          });
-        }
-      }
+      // const status = await git.status();
+      // if (!status.conflicted.length) {
+      //   console.log(`Not exist conflict ✅`);
+      //   for (const command of commands.inAll) {
+      //     exec(command, (err, stdout) => {
+      //       if (stdout) console.log('three ✅', stdout);
+      //     });
+      //   }
+      // }
+
     } catch (error) {
       console.error('Error Happen!', error);
     }
