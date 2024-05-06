@@ -10,7 +10,7 @@ if <files_to_pull> {
   rm -fr ".git/rebase-merge"
 }
 
-if <not_conflicts> {
+if <not_conflicts> {  
   git checkout <base_branch>
   git merge <branch_name>
   git push -f origin <base_branch>
