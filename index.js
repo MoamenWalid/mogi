@@ -49,17 +49,31 @@ program.command('up')
           const data = await git.diff(['HEAD', 'origin/main']);
           if (data) {
             console.log('Changes detected. Pull is possible.');
-            for (const command of commands.inNeedPull) {
-              exec(command, (err, stdout) => {
-                if (stdout) console.log('Success to pull changes ✅', stdout);
-              });
-            }
+
+            await ex(`git pull --no-ff origin ${mainBranch}`);
+            console.log('Success to pull data ✅');
+
+            await ex(`rm -fr ".git/rebase-merge"`);
+            console.log('Success to Delete ".git/rebase-merge" file ✅');
+
+            await ex(`git add .`);
+            console.log('Success to add data to stage ✅');
+
+            await ex(`git commit -m 'success'`);
+            console.log('Success to commit changes ✅');
+
+
+
           } else {
             console.log('No changes to pull.');
           }
           resolve();
         });
       });
+
+      async function pulling() {
+
+      }
 
       async function mergePush(obj, mainBranch) {
         try {
@@ -68,10 +82,10 @@ program.command('up')
             console.log(`Not exist conflict ✅`);
 
             await ex(`git checkout ${mainBranch}`);
-            console.log('Succes to checkout main ✅');
+            console.log('Success to checkout main ✅');
 
             await ex(`git merge "${obj.branch}"`);
-            console.log('Succes to merge Data ✅');
+            console.log('Success to merge Data ✅');
 
             await ex(`git push -f origin ${mainBranch}`);
             console.log('Success to push data ✅');
