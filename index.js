@@ -30,7 +30,6 @@ program.command('up')
       const branches = await git.branch();
       const mainBranch = branches.all.find(branch => branch === 'main' || branch === 'master');
       const diff = await git.diffSummary();
-      const commands = gitCommand(mainBranch, obj);
 
       if (diff.files.length) {
         console.log(obj);
