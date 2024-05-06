@@ -34,41 +34,63 @@ program.command('up')
       const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
       const diff = await git.diffSummary();
       const commands = gitCommand(mainBranch, obj);
-
+      
       // Check if have changes files
       if (diff.files.length) {
-        commands.inFilesChange.forEach(command => {
+        for (const command of commands.inFilesChange) {
           exec(command, (err, stdout) => {
+            console.log('file changes');
             if (stdout) console.log('Success ✅', stdout);
-          })
-        })
-      }
-
-      // Check for differences between local and remote branches
-      await git.fetch(async () => {
-        await git.diff(['HEAD', 'origin/main'], (err, data) => {
-          if (data) {
-            console.log('Changes detected. Pull is possible.');
-            commands.inNeedPull.forEach(command => {
-              exec(command, (err, stdout) => {
-                if (stdout) console.log('Success ✅', stdout);
-              })
-            })
-          } else {
-            console.log('No changes to pull.');
-          }
-        })
-      });
-
-      await git.status((err, status) => {
-        if (!status.conflicted.length) {
-          commands.inAll.forEach(command => {
-            exec(command, (err, stdout) => {
-              if (stdout) console.log('Success ✅', stdout);
-            })
-          })
+          });
         }
-      })
+      }
+      
+      // Check for differences between local and remote branches
+      await new Promise((resolve, reject) => {
+        git.fetch(async (err) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          await git.diff(['HEAD', 'origin/main'], async (err, data) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            if (data) {
+              console.log('Changes detected. Pull is possible.');
+              for (const command of commands.inNeedPull) {
+                exec(command, (err, stdout) => {
+                  if (stdout) console.log('Success ✅', stdout);
+                });
+              }
+            } else {
+              console.log('No changes to pull.');
+            }
+            resolve();
+          });
+        });
+      });
+      
+      // Check if exist conflict or not
+      await new Promise((resolve, reject) => {
+        git.status((err, status) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          if (!status.conflicted.length) {
+            for (const command of commands.inAll) {
+              exec(command, (err, stdout) => {
+                console.log(`exist conflict`);
+                if (stdout) console.log('Success ✅', stdout);
+              });
+            }
+          }
+          resolve();
+        });
+      });
+      
     })
   });
 
