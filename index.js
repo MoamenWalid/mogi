@@ -35,23 +35,21 @@ program.command('up')
         console.log('file changes found!');
         for (const command of commands.inFilesChange) {
           exec(command, (err, stdout) => {
-            if (stdout) console.log('one ✅', stdout);
+            if (stdout) console.log('Success to commit changes ✅', stdout);
           });
         }
       }
 
       await new Promise((resolve, reject) => {
         git.fetch(async (err) => {
-          if (err) {
-            reject(err);
-            return;
-          }
+          if (err) reject(err);
+
           const data = await git.diff(['HEAD', 'origin/main']);
           if (data) {
             console.log('Changes detected. Pull is possible.');
             for (const command of commands.inNeedPull) {
               exec(command, (err, stdout) => {
-                if (stdout) console.log('two ✅', stdout);
+                if (stdout) console.log('Success to pull changes ✅', stdout);
               });
             }
           } else {
@@ -66,12 +64,13 @@ program.command('up')
         console.log(`Not exist conflict ✅`);
         for (const command of commands.inAll) {
           exec(command, (err, stdout) => {
-            if (stdout) console.log('three ✅', stdout);
+            if (stdout) console.log('Succes to merge data ✅', stdout);
           });
         }
       }
+
     } catch (error) {
-      console.error('Error Happen!', error);
+      console.error('Error Happen!', error); 
     }
   });
 
