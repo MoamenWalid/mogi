@@ -39,15 +39,24 @@ program.command('up')
         //   });
         // }
         exec(`git checkout -b "${obj.branch}"`, (err, stdout) => {
-          if (stdout) console.log('Checkout new branch ✅', stdout);
+          if (stdout) {
+            console.log(stdout);
+            console.log('Success to create new branch ✅');
+          }
         });
 
         exec(`git add .`, (err, stdout) => {
-          if (stdout) console.log('add changes in stadge ✅', stdout);
+          if (stdout) {
+            console.log(stdout);
+            console.log('Success to add in stage ✅');
+          }
         });
 
         exec(`git commit -m "${obj.message}"`, (err, stdout) => {
-          if (stdout) console.log('Success to commit ✅', stdout);
+          if (stdout) {
+            console.log(stdout);
+            console.log('Success to commit changes ✅');
+          }
         });
       }
 
