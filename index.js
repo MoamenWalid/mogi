@@ -71,7 +71,7 @@ program.command('up')
       // }
 
     } catch (error) {
-      console.error('Error Happen!', error);
+      console.error('Error Happen!', error); 
     }
   });
 
