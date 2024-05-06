@@ -62,11 +62,20 @@ program.command('up')
       const status = await git.status();
       if (!status.conflicted.length) {
         console.log(`Not exist conflict ✅`);
-        for (const command of commands.inAll) {
-          exec(command, (err, stdout) => {
-            if (stdout) console.log('Succes to merge data ✅', stdout);
-          });
-        }
+        // for (const command of commands.inAll) {
+        //   exec(command, (err, stdout) => {
+        //     if (stdout) console.log('Succes to merge data ✅', stdout);
+        //   });
+        // }
+        exec(`git checkout ${mainBranch}`, (err, stdout) => {
+          if (stdout) console.log('Succes to checkout main ✅', stdout);
+        });
+        exec(`git merge "${obj.branch}"`, (err, stdout) => {
+          if (stdout) console.log('Succes to merge data ✅', stdout);
+        });
+        exec(`git push -f origin ${mainBranch}`, (err, stdout) => {
+          if (stdout) console.log('Succes to push ✅', stdout);
+        });
       }
 
     } catch (error) {
