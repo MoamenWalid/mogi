@@ -42,23 +42,28 @@ program.command('up')
 
       await new Promise((resolve, reject) => {
         git.fetch(async (err) => {
-          if (err) reject(err);
+          if (err) {
+            reject(err);
+            return;
+          }
 
-          const data = await git.diff('origin/main');
+          const data = await git.diff(['HEAD', 'origin/main']);
           console.log(data);
-          // if (data) {
-          //   console.log('Changes detected. Pull is possible.');
-          //   for (const command of commands.inNeedPull) {
-          //     exec(command, (err, stdout) => {
-          //       if (stdout) console.log('two ✅', stdout);
-          //     });
-          //   }
-          // } else {
-          //   console.log('No changes to pull.');
-          // }
-          // resolve();
+          if (data) {
+            console.log('Changes detected. Pull is possible.');
+            for (const command of commands.inNeedPull) {
+              exec(command, (err, stdout) => {
+                if (stdout) console.log('two ✅', stdout);
+              });
+            }
+          } else {
+            console.log('No changes to pull.');
+          }
+          resolve();
         });
       });
+
+
 
       // const status = await git.status();
       // if (!status.conflicted.length) {
