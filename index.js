@@ -33,32 +33,12 @@ program.command('up')
       if (diff.files.length) {
         console.log(obj);
         console.log('file changes found!');
-        // for (const command of commands.inFilesChange) {
-        //   exec(command, (err, stdout) => {
-        //     if (stdout) console.log('one ✅', stdout);
-        //   });
-        // }
-        
-        exec(`git checkout -b "${obj.branch}"`, (err, stdout) => {
-          if (stdout) {
-            console.log(stdout);
-            console.log('Success to create new branch ✅');
-          }
-        });
-
-        exec(`git add .`, (err, stdout) => {
-          if (stdout) {
-            console.log(stdout);
-            console.log('Success to add in stage ✅');
-          }
-        });
-
-        exec(`git commit -m "${obj.message}"`, (err, stdout) => {
-          if (stdout) {
-            console.log(stdout);
-            console.log('Success to commit changes ✅');
-          }
-        });
+        for (const command of commands.inFilesChange) {
+          exec(command, (err, stdout) => {
+            if (stdout) console.log('Success to commit changes ✅', stdout);
+            
+          });
+        }
       }
 
       // await new Promise((resolve, reject) => {
