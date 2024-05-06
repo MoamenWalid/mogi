@@ -28,10 +28,8 @@ How it work:
   if <files_to_pull> {
     git pull --no-ff --no-commit origin <base_brach>  
     rm -fr ".git/rebase-merge"
-    if <file_changes> {
-      git add .
-      git commit -m 'Greet jop to solve conflict ✅ <files_change>'
-    }
+    git add .
+    git commit -m 'Greet jop to solve conflict ✅ <files_change>'
   }
 
   git checkout <base_branch>

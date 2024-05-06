@@ -1,35 +1,18 @@
 
-mogi up -b <branch|random_branch> -m <comment|files_change><br>
-using:
-1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
-2) **`mogi up -b ref -> branch = ref | commit = <files_change>`**
-3) **`mogi up -b ref -m 'first commit' -> branch = ref | commit = 'first commit'`** 
-
-````
 How it work:
-  if <branch> {
-    git checkout -b <branch>
-  }
-
-  else {
-    git checkout -b <random_branch>
-  }
-
+if <file_chnages> {
+  git checkout -b <branch>
   git add .
+  git commit -m <comment>
+}
 
-  if <comment> {
-    git commit -m <comment>
-  }
-
-  else {
-    git commit -m 'We have change in <files_change>'
-  }
-
-  git pull --no-ff origin <base_brach>
+if <files_to_pull> {
+  git pull --no-ff --no-commit origin <base_branch>  
   rm -fr ".git/rebase-merge"
-  git add .
-  git commit -m 'solve'
+}
+
+if <not_conflicts> {
   git checkout <base_branch>
   git merge <branch_name>
   git push -f origin <base_branch>
-````
+}
