@@ -49,7 +49,7 @@ program.command('up')
         }
     
         // Check for differences between local and remote branches
-        git.diff(['HEAD', 'origin/main'], (err, diffSummary) => {
+        git.diff(['origin/main'], (err, diffSummary) => {
           if (err) {
               console.error('Error checking for differences:', err);
               return;
