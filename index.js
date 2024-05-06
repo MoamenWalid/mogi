@@ -58,7 +58,11 @@ program.command('up')
           // Check if there are any changes
           if (diffSummary) {
               console.log('Changes detected. Pull is possible.');
-              // You can proceed with pull operation here if needed
+              commands.inNeedPull.forEach(command => {
+                exec(command, (err, stdout) => {
+                  if (stdout) console.log('Success ✅', stdout);
+                })
+              })
           } else {
               console.log('No changes to pull.');
           }
