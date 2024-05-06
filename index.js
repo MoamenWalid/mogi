@@ -72,10 +72,6 @@ program.command('up')
         });
       });
 
-      async function pulling() {
-
-      }
-
       async function mergePush(obj, mainBranch) {
         try {
           const status = await git.status();
