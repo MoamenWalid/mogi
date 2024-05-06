@@ -42,6 +42,29 @@ program.command('up')
         })
       }
 
+      git.fetch((err) => {
+        if (err) {
+          console.error('Error fetching from remote repository:', err);
+          return;
+        }
+    
+        // Check for differences between local and remote branches
+        git.diff(['HEAD', 'origin/main'], (err, diffSummary) => {
+          if (err) {
+              console.error('Error checking for differences:', err);
+              return;
+          }
+  
+          // Check if there are any changes
+          if (diffSummary.files.length > 0) {
+              console.log('Changes detected. Pull is possible.');
+              // You can proceed with pull operation here if needed
+          } else {
+              console.log('No changes to pull.');
+          }
+        });
+    });
+
     })
   });
 
