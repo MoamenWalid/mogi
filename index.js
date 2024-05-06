@@ -56,7 +56,7 @@ program.command('up')
           }
   
           // Check if there are any changes
-          if (diffSummary.files.length > 0) {
+          if (diffSummary) {
               console.log('Changes detected. Pull is possible.');
               // You can proceed with pull operation here if needed
           } else {
