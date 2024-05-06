@@ -1,3 +1,4 @@
+// asdf
 mogi up -b <branch|random_branch> -m <comment|files_change><br>
 using:
 1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
