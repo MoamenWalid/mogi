@@ -72,7 +72,7 @@ program.command('up')
         git.fetch(async (err) => {
           if (err) reject(err);
 
-          const data = await git.diff(['HEAD', `'origin/${mainBranch}`]);
+          const data = await git.diff(['HEAD', `origin/${mainBranch}`]);
           if (data) {
             console.log('Changes detected. Pull is possible.');
 
