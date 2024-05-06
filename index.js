@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+//
 import random from 'random-string-generator';
 import { simpleGit } from 'simple-git';
 import { exec } from 'node:child_process';
