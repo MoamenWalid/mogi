@@ -1,5 +1,3 @@
-
-// func to return all comands we want to git, github
 const gitCommand = (mainBranch, obj) => {
   const objCommands = {
     inFilesChange: [
@@ -25,4 +23,4 @@ const gitCommand = (mainBranch, obj) => {
   return objCommands;
 }
 
-export { gitCommand };  
+export { gitCommand };   
