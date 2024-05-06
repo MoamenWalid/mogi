@@ -35,11 +35,22 @@ program.command('up')
       if (diff.files.length) {
         console.log(obj);
         console.log('file changes found!');
-        for (const command of commands.inFilesChange) {
-          exec(command, (err, stdout) => {
-            if (stdout) console.log('Success to commit changes ✅', stdout);
-          });
-        }
+        // for (const command of commands.inFilesChange) {
+        //   exec(command, (err, stdout) => {
+        //     if (stdout) console.log('Success to commit changes ✅', stdout);
+        //   });
+        // }
+
+        await ex(`git checkout -b "${obj.branch}"`);
+        console.log('Success to checkout new branch ✅');
+
+        await ex(`git add .`);
+        console.log('Success to add data to stage ✅');
+
+        await ex(`git commit -m "${obj.message}"`);
+        console.log('Success to commit changes ✅');
+
+        console.log('---------Mogi------------');
       }
 
       await new Promise((resolve, reject) => {
@@ -69,6 +80,7 @@ program.command('up')
             console.log('No changes to pull.');
           }
           resolve();
+          console.log('---------Mogi------------');
         });
       });
 
