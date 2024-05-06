@@ -35,11 +35,6 @@ program.command('up')
       if (diff.files.length) {
         console.log(obj);
         console.log('file changes found!');
-        // for (const command of commands.inFilesChange) {
-        //   exec(command, (err, stdout) => {
-        //     if (stdout) console.log('Success to commit changes ✅', stdout);
-        //   });
-        // }
 
         await ex(`git checkout -b "${obj.branch}"`);
         console.log('Success to checkout new branch ✅');
