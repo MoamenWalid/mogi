@@ -4,23 +4,13 @@ import random from 'random-string-generator';
 import { simpleGit } from 'simple-git';
 import { exec } from 'node:child_process';
 import { program } from 'commander';
-import { getFilesToCommit } from './fileChanges.js';
 import { gitCommand } from './commands.js';
+import { getFilesToCommit } from './fileChanges.js';
 
 const git = simpleGit();
 
 // Function if branch isn't exist
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
-
-
-// Function main
-// async function main() {
-//   try {
-    
-//   } catch (error) {
-    
-//   }
-// }
 
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
@@ -35,24 +25,50 @@ program.command('up')
     if (!obj.branch) randBranch(obj);
     if (!obj.message) await getFilesToCommit(obj);
 
-    console.log('Your data is: ', obj);
-
-    git.branch((err, { all: branches }) => {
-      if (err) {
-        console.log('Error ', err);
+    git.branch(async (error, { all: branches }) => {
+      if (error) {
+        console.error('Error Happen!', error);
         return;
       }
 
       const mainBranch = branches.find(branch => branch === 'main' || branch === 'master');
+      const diff = await git.diffSummary();
       const commands = gitCommand(mainBranch, obj);
 
-      commands.forEach(command => {
-        exec(command, (err, stdout) => {
-          if (stdout) console.log('Success ✅', stdout);
-        });
-      })
+      // Check if have changes files
+      if (diff.files.length) {
+        commands.inFilesChange.forEach(command => {
+          exec(command, (err, stdout) => {
+            if (stdout) console.log('Success ✅', stdout);
+          })
+        })
+      }
 
-      if (obj.delete) exec(`git branch -d ${obj.branch}`);
+      // Check for differences between local and remote branches
+      await git.fetch(async () => {
+        await git.diff(['HEAD', 'origin/main'], (err, data) => {
+          if (data) {
+            console.log('Changes detected. Pull is possible.');
+            commands.inNeedPull.forEach(command => {
+              exec(command, (err, stdout) => {
+                if (stdout) console.log('Success ✅', stdout);
+              })
+            })
+          } else {
+            console.log('No changes to pull.');
+          }
+        })
+      });
+
+      await git.status((err, status) => {
+        if (!status.conflicted.length) {
+          commands.inAll.forEach(command => {
+            exec(command, (err, stdout) => {
+              if (stdout) console.log('Success ✅', stdout);
+            })
+          })
+        }
+      })
     })
   });
 

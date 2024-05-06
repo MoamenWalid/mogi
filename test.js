@@ -9,7 +9,8 @@ import { gitCommand } from './commands.js';
 
 const git = simpleGit();
 
-
-git.status((err, status) => {
-  console.log(status.conflicted.length);
-})
+git.fetch(() => {
+  git.diff(['HEAD', 'origin/main'], (err, data) => {
+    console.log(data);
+  })
+});
