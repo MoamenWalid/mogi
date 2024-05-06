@@ -10,7 +10,9 @@ const gitCommand = (mainBranch, obj) => {
 
     inNeedPull: [
       `git pull --no-ff --no-commit origin ${mainBranch}`,
-      `rm -fr ".git/rebase-merge"`
+      `rm -fr ".git/rebase-merge"`,
+      `git add .`,
+      `git commit -m 'success'`
     ],
 
     inAll: [
