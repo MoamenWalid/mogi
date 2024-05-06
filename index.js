@@ -3,13 +3,34 @@ import random from 'random-string-generator';
 import { simpleGit } from 'simple-git';
 import { exec } from 'node:child_process';
 import { program } from 'commander';
-import { gitCommand } from './commands.js';
 import { getFilesToCommit } from './fileChanges.js';
 import { promisify } from 'node:util';
 
 const git = simpleGit();
 const ex = promisify(exec);
 
+// function to merge and push on origin
+async function mergePush(obj, mainBranch) {
+  try {
+    const status = await git.status();
+    if (!status.conflicted.length) {
+      console.log(`Not exist conflict ✅`);
+
+      await ex(`git checkout ${mainBranch}`);
+      console.log('Success to checkout main ✅');
+
+      await ex(`git merge ${obj.branch}`);
+      console.log('Success to merge Data ✅');
+
+      await ex(`git push -f origin ${mainBranch}`);
+      console.log('Success to push data ✅');
+    }
+  } catch (error) {
+    console.error('Wrong Happen!', error);
+  }
+}
+
+// Function to make randBranch
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
 program
@@ -77,26 +98,6 @@ program.command('up')
           console.log('---------Mogi------------');
         });
       });
-
-      async function mergePush(obj, mainBranch) {
-        try {
-          const status = await git.status();
-          if (!status.conflicted.length) {
-            console.log(`Not exist conflict ✅`);
-
-            await ex(`git checkout ${mainBranch}`);
-            console.log('Success to checkout main ✅');
-
-            await ex(`git merge "${obj.branch}"`);
-            console.log('Success to merge Data ✅');
-
-            await ex(`git push -f origin ${mainBranch}`);
-            console.log('Success to push data ✅');
-          }
-        } catch (error) {
-          console.error('Wrong Happen!', error);
-        }
-      }
 
       mergePush(obj, mainBranch);
 
