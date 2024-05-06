@@ -41,7 +41,7 @@ program.command('up')
         console.log('file changes found!');
         for (const command of commands.inFilesChange) {
           exec(command, (err, stdout) => {
-            if (stdout) console.log('Success ✅', stdout);
+            if (stdout) console.log('one ✅', stdout);
           });
         }
       }
@@ -62,7 +62,7 @@ program.command('up')
               console.log('Changes detected. Pull is possible.');
               for (const command of commands.inNeedPull) {
                 exec(command, (err, stdout) => {
-                  if (stdout) console.log('Success ✅', stdout);
+                  if (stdout) console.log('two ✅', stdout);
                 });
               }
             } else {
@@ -84,7 +84,7 @@ program.command('up')
             console.log(`Not exist conflict ✅`);
             for (const command of commands.inAll) {
               exec(command, (err, stdout) => {
-                if (stdout) console.log('Success ✅', stdout);
+                if (stdout) console.log('three ✅', stdout);
               });
             }
           }
