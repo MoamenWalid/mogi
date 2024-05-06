@@ -65,7 +65,6 @@ program.command('up')
         for (const command of commands.inAll) {
           exec(command, (err, stdout) => {
             if (stdout) console.log('Succes to merge data ✅', stdout);
-            
           });
         }
       }
