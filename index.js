@@ -56,13 +56,14 @@ program.command('up')
             await ex(`rm -fr ".git/rebase-merge"`);
             console.log('Success to Delete ".git/rebase-merge" file ✅');
 
-            await ex(`git add .`);
-            console.log('Success to add data to stage ✅');
+            const diff = await git.diffSummary();
+            if (diff.files.length) {
+              await ex(`git add .`);
+              console.log('Success to add data to stage ✅');
 
-            await ex(`git commit -m 'success'`);
-            console.log('Success to commit changes ✅');
-
-
+              await ex(`git commit -m 'success'`);
+              console.log('Success to commit changes ✅');
+            }
 
           } else {
             console.log('No changes to pull.');
