@@ -47,11 +47,19 @@ program.command('up')
           const data = await git.diff(['HEAD', 'origin/main']);
           if (data) {
             console.log('Changes detected. Pull is possible.');
-            for (const command of commands.inNeedPull) {
-              exec(command, (err, stdout) => {
-                if (stdout) console.log('Success to pull changes ✅', stdout);
-              });
-            }
+            exec(`git pull --no-ff origin ${mainBranch}`, (err, stdout) => {
+              if (stdout) console.log('Success to pull changes ✅', stdout);
+            });
+            exec(`rm -fr ".git/rebase-merge"`, (err, stdout) => {
+              if (stdout) console.log('Success to ".git/rebase-merge" ✅', stdout);
+            });
+            exec(`git add .`, (err, stdout) => {
+              if (stdout) console.log('Success to add changes to stage ✅', stdout);
+            });
+            exec(`git commit -m 'success'`, (err, stdout) => {
+              if (stdout) console.log('Success to commit changes ✅', stdout);
+            });
+
           } else {
             console.log('No changes to pull.');
           }
@@ -65,9 +73,11 @@ program.command('up')
         exec(`git checkout ${mainBranch}`, (err, stdout) => {
           if (stdout) console.log('Succes to checkout main ✅', stdout);
         });
+
         exec(`git merge "${obj.branch}"`, (err, stdout) => {
           if (stdout) console.log('Succes to merge data ✅', stdout);
         });
+        
         exec(`git push -f origin ${mainBranch}`, (err, stdout) => {
           if (stdout) console.log('Succes to push ✅', stdout);
         });
