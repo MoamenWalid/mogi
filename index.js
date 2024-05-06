@@ -12,6 +12,16 @@ const git = simpleGit();
 // Function if branch isn't exist
 const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
+
+// Function main
+// async function main() {
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// }
+
 program.name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
   .version('1.1.0'); 

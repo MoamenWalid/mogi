@@ -1,4 +1,3 @@
-
 mogi up -b <branch|random_branch> -m <comment|files_change><br>
 using:
 1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
@@ -7,28 +6,34 @@ using:
 
 ````
 How it work:
-  if <branch> {
-    git checkout -b <branch>
+  if <file_chnages> {
+    if <branch> {
+      git checkout -b <branch>
+    }
+
+    else {
+      git checkout -b <random_branch>
+    }
+
+    git add .
+    if <comment> {
+      git commit -m <comment>
+    }
+
+    else {
+      git commit -m 'We have change in <files_change>'
+    }
   }
 
-  else {
-    git checkout -b <random_branch>
+  if <files_to_pull> {
+    git pull --no-ff --no-commit origin <base_brach>  
+    rm -fr ".git/rebase-merge"
+    if <file_changes> {
+      git add .
+      git commit -m 'Greet jop to solve conflict ✅ <files_change>'
+    }
   }
 
-  git add .
-
-  if <comment> {
-    git commit -m <comment>
-  }
-
-  else {
-    git commit -m 'We have change in <files_change>'
-  }
-
-  git pull --no-ff origin <base_brach>
-  rm -fr ".git/rebase-merge"
-  git add .
-  git commit -m 'solve'
   git checkout <base_branch>
   git merge <branch_name>
   git push -f origin <base_branch>

@@ -1,18 +1,15 @@
-import simpleGit from 'simple-git';
 
-const workingDirectory = process.cwd();
-const git = simpleGit(workingDirectory);
+import random from 'random-string-generator';
+import { simpleGit } from 'simple-git';
+import child_process from 'node:child_process';
+import { promisify  } from 'util';
+import { program } from 'commander';
+import { getFilesToCommit } from './fileChanges.js';
+import { gitCommand } from './commands.js';
 
-git.pull((err, update) => {
-  if (err) {
-    console.error('Wrong', err);
-    return;
-  }
+const git = simpleGit();
 
-  if (update && update.summary.changes) {
-    console.log('New Data');
-    console.log('Changes: ', update.summary.changes);
-  } else {
-    console.log('Nothing Exist!');
-  }
-});
+
+git.status((err, status) => {
+  console.log(status.conflicted.length);
+})
