@@ -30,21 +30,21 @@ program.command('up')
       const diff = await git.diffSummary();
       const commands = gitCommand(mainBranch, obj);
 
-      if (diff.files.length) {
-        console.log(obj);
-        console.log('file changes found!');
-        for (const command of commands.inFilesChange) {
-          exec(command, (err, stdout) => {
-            if (stdout) console.log('Success to commit changes ✅', stdout);
-          });
-        }
-      }
+      // if (diff.files.length) {
+      //   console.log(obj);
+      //   console.log('file changes found!');
+      //   for (const command of commands.inFilesChange) {
+      //     exec(command, (err, stdout) => {
+      //       if (stdout) console.log('Success to commit changes ✅', stdout);
+      //     });
+      //   }
+      // }
 
       await new Promise((resolve, reject) => {
         git.fetch(async (err) => {
           if (err) reject(err);
 
-          const data = await git.diff();
+          const data = await git.diff('origin/main');
           console.log(data);
           // if (data) {
           //   console.log('Changes detected. Pull is possible.');
