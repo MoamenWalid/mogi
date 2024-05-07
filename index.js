@@ -93,7 +93,8 @@ program.command('up')
 
           } else {
             console.log('No changes to pull.');
-          }'origin/'
+          }
+          
           resolve();
           console.log('---------Mogi------------');
         });
