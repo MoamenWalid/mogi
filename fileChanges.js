@@ -22,4 +22,3 @@ const getFilesToCommit = async(obj) => {
 };
 
 export { getFilesToCommit };
-// Adding
