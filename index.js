@@ -36,7 +36,7 @@ const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 program
   .name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
-  .version('1.1.0'); 
+  .version('1.4.0'); 
 
 program.command('up')
   .description('This base command to mogi start')
