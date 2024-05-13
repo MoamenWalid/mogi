@@ -108,4 +108,3 @@ program.command('up')
   });
 
 program.parse();
-// Align in merge have doing
