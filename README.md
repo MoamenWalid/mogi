@@ -23,6 +23,3 @@ mogi up -d: This option '-d' mean delete a created branch
 
 mogi up enhances your workflow by providing a convenient way to manage your Git branches and commits, making collaboration and version control more efficient.
 ````
-
-// likes in new branch as like in
-// created a new branch and delete it in now is created in how it work right now is liked now align devs
