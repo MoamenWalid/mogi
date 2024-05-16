@@ -1,38 +1,25 @@
-mogi up -b <branch|random_branch> -m <comment|files_change><br>
+mogi up -b <branch|random_branch> -m <message|files_change><br>
 using:
-1) **`mogi up -> branch = <random_branch> | commit = <files_change>`**
-2) **`mogi up -b ref -> branch = ref | commit = <files_change>`**
-3) **`mogi up -b ref -m 'first commit' -> branch = ref | commit = 'first commit'`**
+1) **`mogi up -> branch = <random_branch> && commit = <files_change>`**
+2) **`mogi up -b ref -> branch = ref && commit = <files_change>`**
+3) **`mogi up -b ref -m 'first commit' -> branch = ref && commit = 'first commit'`**
 
+## **mogi up**
 ````
-How it work:
-  if <file_chnages> {
-    if <branch> {
-      git checkout -b <branch>
-    }
+Mogi Up is a command-line tool designed to streamline the process of pushing changes to a Git repository. With its simple syntax and powerful functionality, Mogi Up simplifies the steps involved in committing and pushing changes, saving you time and effort.
+````
 
-    else {
-      git checkout -b <random_branch>
-    }
+<hr>
 
-    git add .
-    if <comment> {
-      git commit -m <comment>
-    }
+### **Usage:**
+````
+mogi up: This command automatically creates a new branch and commits the changes with a randomly generated branch name and a message indicating the files changed.
 
-    else {
-      git commit -m 'We have change in <files_change>'
-    }
-  }
+mogi up -b <ref>: Specify a branch name <ref> to create and commit changes to. The commit message will indicate the files changed.
 
-  if <files_to_pull> {
-    git pull --no-ff --no-commit origin <base_brach>  
-    rm -fr ".git/rebase-merge"
-    git add .
-    git commit -m 'Greet jop to solve conflict ✅ <files_change>'
-  }
+mogi up -b <ref> -m <message>: Create a branch named <ref> and commit changes with a custom message <message>.
 
-  git checkout <base_branch>
-  git merge <branch_name>
-  git push -f origin <base_branch>
+mogi up -d: This option '-d' mean delete a created branch
+
+mogi up enhances your workflow by providing a convenient way to manage your Git branches and commits, making collaboration and version control more efficient.
 ````

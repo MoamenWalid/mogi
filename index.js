@@ -25,6 +25,11 @@ async function mergePush(obj, mainBranch) {
       await ex(`git push -f origin ${mainBranch}`);
       console.log('Success to push data ✅');
     }
+
+    if (obj.delete) {
+      await ex(`git branch -d ${obj.branch}`);
+      console.log('Success to delete branch ✅');
+    }
   } catch (error) {
     console.error('Wrong Happen!', error);
   }
@@ -36,7 +41,7 @@ const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 program
   .name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
-  .version('1.1.0'); 
+  .version('1.4.0'); 
 
 program.command('up')
   .description('This base command to mogi start')
@@ -100,14 +105,6 @@ program.command('up')
         });
       });
 
-      if (obj.delete) {
-        console.log('Delete branch option selected.');
-        // القيام بالإجراء المناسب هنا إذا كان الخيار -d موجودًا
-      } else {
-        console.log('Delete branch option not selected.');
-        // القيام بالإجراء المناسب هنا إذا لم يكن الخيار -d موجودًا
-      }
-
       mergePush(obj, mainBranch);
 
     } catch (error) {
@@ -115,4 +112,4 @@ program.command('up')
     }
   });
 
-program.parse(process.argv);
+program.parse();
