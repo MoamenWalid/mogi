@@ -7,10 +7,15 @@ import { program } from 'commander';
 import { getFilesToCommit } from './fileChanges.js';
 import { gitCommand } from './commands.js';
 
-const git = simpleGit();
+program
+  .option('-d, --debug', 'output extra debugging')
+  .option('-s, --small', 'small pizza size')
+  .option('-p, --pizza-type <type>', 'flavour of pizza');
 
-git.fetch(() => {
-  git.diff(['HEAD', 'origin/main'], (err, data) => {
-    console.log(data);
-  })
-});
+program.parse(process.argv);
+
+// const options = program.opts();
+// if (options.debug) console.log(options);
+// console.log('pizza details:');
+// if (options.small) console.log('- small pizza size');
+// if (options.pizzaType) console.log(`- ${options.pizzaType}`);

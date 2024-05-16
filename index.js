@@ -100,6 +100,14 @@ program.command('up')
         });
       });
 
+      if (obj.delete) {
+        console.log('Delete branch option selected.');
+        // القيام بالإجراء المناسب هنا إذا كان الخيار -d موجودًا
+      } else {
+        console.log('Delete branch option not selected.');
+        // القيام بالإجراء المناسب هنا إذا لم يكن الخيار -d موجودًا
+      }
+
       mergePush(obj, mainBranch);
 
     } catch (error) {
@@ -107,5 +115,4 @@ program.command('up')
     }
   });
 
-program.parse();
- 
+program.parse(process.argv);

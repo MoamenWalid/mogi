@@ -15,7 +15,7 @@ const fileChanges = async () => {
 const getFilesToCommit = async(obj) => {
   try {
     const changes = await fileChanges();
-    obj.message = `Changed files which need to commit: [${changes.join(', ')}] in ${obj.branch} branch`;
+    obj.message = `Changed files which need to commit: [${changes.join(', ')}] in <${obj.branch}> branch`;
   } catch (err) {
     console.error('Error:', err);
   }
