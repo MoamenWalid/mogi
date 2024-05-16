@@ -5,9 +5,7 @@ using:
 3) **`mogi up -b ref -m 'first commit' -> branch = ref && commit = 'first commit'`**
 
 ## **mogi up**
-````
 Mogi Up is a command-line tool designed to streamline the process of pushing changes to a Git repository. With its simple syntax and powerful functionality, Mogi Up simplifies the steps involved in committing and pushing changes, saving you time and effort.
-````
 
 <hr>
 
