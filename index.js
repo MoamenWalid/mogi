@@ -9,7 +9,7 @@ import { promisify } from 'node:util';
 const git = simpleGit();
 const ex = promisify(exec);
 
-// function to merge and push on origin
+// function to merge, push on origin
 async function mergePush(obj, mainBranch) {
   try {
     const status = await git.status();
