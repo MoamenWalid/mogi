@@ -79,7 +79,7 @@ async function mergePush(obj, mainBranch) {
     if (!status.conflicted.length) {
       console.log(`Not exist conflict ✅`);
 
-      await ex(`git checkout to ${ mainBranch }`);
+      await ex(`git checkout ${ mainBranch }`);
       console.log(`Success to checkout to '${ mainBranch }' branch ✅`);
 
       await ex(`git merge ${ obj.branch }`);
