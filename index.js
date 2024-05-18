@@ -28,7 +28,7 @@ async function foundChanges(obj) {
       console.log('Success to add data to stage ✅');
   
       await ex(`git commit -m "${obj.message}"`);
-      console.log(`Success to commit changes ${ obj.message } ✅`);
+      console.log(`Success to commit changes as \n'${ obj.message }' ✅`);
   
       console.log('---------Mogi------------');
     } else throw 'Not found any changes';
