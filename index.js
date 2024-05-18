@@ -50,11 +50,9 @@ async function foundPull(mainBranch) {
         await ex(`git pull --no-ff origin ${ mainBranch }`);
         console.log('Success to pull data ✅');
   
-        if (fs.existsSync('.git/rebase-merge"')) {
-          await ex(`rm -fr ".git/rebase-merge"`);
-          console.log('Success to Delete ".git/rebase-merge" file ✅');
-        }
-  
+        await ex(`rm -fr ".git/rebase-merge"`);
+        console.log('Success to Delete ".git/rebase-merge" file ✅');
+
         const diff = await git.diffSummary();
         if (diff.files.length) {
           await ex(`git add .`);
