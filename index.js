@@ -9,7 +9,69 @@ import { promisify } from 'node:util';
 const git = simpleGit();
 const ex = promisify(exec);
 
-// function to merge, push on origin
+// Function to make randBranch
+const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
+
+// Funciton when found files change
+async function foundChanges(obj) {
+  try {
+    const diff = await git.diffSummary();
+    if (diff.files.length) {
+      console.log(obj);
+      console.log('file changes found!');
+  
+      await ex(`git checkout -b "${obj.branch}"`);
+      console.log('Success to checkout new branch ✅');
+  
+      await ex(`git add .`);
+      console.log('Success to add data to stage ✅');
+  
+      await ex(`git commit -m "${obj.message}"`);
+      console.log('Success to commit changes ✅');
+  
+      console.log('---------Mogi------------');
+    } else throw 'Not found any changes';
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+// Function to pull changes if found
+async function foundPull(mainBranch) {
+  await new Promise((res, rej) => {
+    git.fetch(async (err) => {
+      if (err) rej(err);
+  
+      const data = await git.diff(['HEAD', `origin/${mainBranch}`]);
+      if (data) {
+        console.log('Changes detected. Pull is possible.');
+  
+        await ex(`git pull --no-ff origin ${mainBranch}`);
+        console.log('Success to pull data ✅');
+  
+        await ex(`rm -fr ".git/rebase-merge"`);
+        console.log('Success to Delete ".git/rebase-merge" file ✅');
+  
+        const diff = await git.diffSummary();
+        if (diff.files.length) {
+          await ex(`git add .`);
+          console.log('Success to add data to stage ✅');
+  
+          await ex(`git commit -m 'success'`);
+          console.log('Success to commit changes ✅');
+        }
+  
+      } else {
+        console.log('No changes to pull.');
+      }
+      
+      res();
+      console.log('---------Mogi------------');
+    });
+  });
+}
+
+// Function to merge, push on origin
 async function mergePush(obj, mainBranch) {
   try {
     const status = await git.status();
@@ -31,12 +93,10 @@ async function mergePush(obj, mainBranch) {
       console.log('Success to delete branch ✅');
     }
   } catch (error) {
-    console.error('Wrong Happen!', error);
+    console.error('Wrong Happen!', error.message);
   }
 }
 
-// Function to make randBranch
-const randBranch = (obj) => obj.branch = random(8, 'lowernumeric');
 
 program
   .name('mogi')
@@ -52,64 +112,12 @@ program.command('up')
     if (!obj.branch) randBranch(obj);
     if (!obj.message) await getFilesToCommit(obj);
 
-    try {
-      const branches = await git.branch();
-      const mainBranch = branches.all.find(branch => branch === 'main' || branch === 'master');
-      const diff = await git.diffSummary();
+    const branches = await git.branch();
+    const mainBranch = branches.all.find(branch => branch === 'main' || branch === 'master');
 
-      if (diff.files.length) {
-        console.log(obj);
-        console.log('file changes found!');
-
-        await ex(`git checkout -b "${obj.branch}"`);
-        console.log('Success to checkout new branch ✅');
-
-        await ex(`git add .`);
-        console.log('Success to add data to stage ✅');
-
-        await ex(`git commit -m "${obj.message}"`);
-        console.log('Success to commit changes ✅');
-
-        console.log('---------Mogi------------');
-      }
-
-      await new Promise((resolve, reject) => {
-        git.fetch(async (err) => {
-          if (err) reject(err);
-
-          const data = await git.diff(['HEAD', `origin/${mainBranch}`]);
-          if (data) {
-            console.log('Changes detected. Pull is possible.');
-
-            await ex(`git pull --no-ff origin ${mainBranch}`);
-            console.log('Success to pull data ✅');
-
-            await ex(`rm -fr ".git/rebase-merge"`);
-            console.log('Success to Delete ".git/rebase-merge" file ✅');
-
-            const diff = await git.diffSummary();
-            if (diff.files.length) {
-              await ex(`git add .`);
-              console.log('Success to add data to stage ✅');
-
-              await ex(`git commit -m 'success'`);
-              console.log('Success to commit changes ✅');
-            }
-
-          } else {
-            console.log('No changes to pull.');
-          }
-          
-          resolve();
-          console.log('---------Mogi------------');
-        });
-      });
-
-      mergePush(obj, mainBranch);
-
-    } catch (error) {
-      console.error('Error Happen!', error); 
-    }
+    await foundChanges(obj);
+    await foundPull(mainBranch);
+    await mergePush(obj, mainBranch);
   });
 
 program.parse();
