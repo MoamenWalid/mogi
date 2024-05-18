@@ -97,7 +97,6 @@ async function mergePush(obj, mainBranch) {
   }
 }
 
-
 program
   .name('mogi')
   .description('GitHub Desktop simplifies Git and GitHub tasks by offering an intuitive interface, making it easy to upload all data without the need for manual upload commands.')
