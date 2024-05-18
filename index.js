@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'node:fs';
 import random from 'random-string-generator';
 import { simpleGit } from 'simple-git';
 import { exec } from 'node:child_process';
@@ -20,19 +21,19 @@ async function foundChanges(obj) {
       console.log(obj);
       console.log('file changes found!');
   
-      await ex(`git checkout -b "${obj.branch}"`);
-      console.log('Success to checkout new branch ✅');
+      await ex(`git checkout -b "${ obj.branch }"`);
+      console.log(`Success to checkout new branch '${ obj.branch }' ✅`);
   
       await ex(`git add .`);
       console.log('Success to add data to stage ✅');
   
       await ex(`git commit -m "${obj.message}"`);
-      console.log('Success to commit changes ✅');
+      console.log(`Success to commit changes ${ obj.message } ✅`);
   
       console.log('---------Mogi------------');
     } else throw 'Not found any changes';
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    console.log(err.message);
   }
 }
 
@@ -42,15 +43,17 @@ async function foundPull(mainBranch) {
     git.fetch(async (err) => {
       if (err) rej(err);
   
-      const data = await git.diff(['HEAD', `origin/${mainBranch}`]);
+      const data = await git.diff(['HEAD', `origin/${ mainBranch }`]);
       if (data) {
         console.log('Changes detected. Pull is possible.');
   
-        await ex(`git pull --no-ff origin ${mainBranch}`);
+        await ex(`git pull --no-ff origin ${ mainBranch }`);
         console.log('Success to pull data ✅');
   
-        await ex(`rm -fr ".git/rebase-merge"`);
-        console.log('Success to Delete ".git/rebase-merge" file ✅');
+        if (fs.existsSync('.git/rebase-merge"')) {
+          await ex(`rm -fr ".git/rebase-merge"`);
+          console.log('Success to Delete ".git/rebase-merge" file ✅');
+        }
   
         const diff = await git.diffSummary();
         if (diff.files.length) {
@@ -68,7 +71,7 @@ async function foundPull(mainBranch) {
       res();
       console.log('---------Mogi------------');
     });
-  });
+  }).catch(err => console.error(err.message));
 }
 
 // Function to merge, push on origin
@@ -78,22 +81,22 @@ async function mergePush(obj, mainBranch) {
     if (!status.conflicted.length) {
       console.log(`Not exist conflict ✅`);
 
-      await ex(`git checkout ${mainBranch}`);
-      console.log('Success to checkout main ✅');
+      await ex(`git checkout to ${ mainBranch }`);
+      console.log(`Success to checkout to '${ mainBranch }' branch ✅`);
 
-      await ex(`git merge ${obj.branch}`);
+      await ex(`git merge ${ obj.branch }`);
       console.log('Success to merge Data ✅');
 
-      await ex(`git push -f origin ${mainBranch}`);
+      await ex(`git push -f origin ${ mainBranch }`);
       console.log('Success to push data ✅');
     }
 
     if (obj.delete) {
-      await ex(`git branch -d ${obj.branch}`);
+      await ex(`git branch -d ${ obj.branch }`);
       console.log('Success to delete branch ✅');
-    }
-  } catch (error) {
-    console.error('Wrong Happen!', error.message);
+    } else console.log("We don't delete a new branch created");
+  } catch (err) {
+    console.error('Wrong Happen!', err.message);
   }
 }
 
