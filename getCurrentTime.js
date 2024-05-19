@@ -12,4 +12,4 @@ const getCurrentTime = () => {
   return `${ year }/${ month }/${ day } in ${ hours }:${ minutes }:${ seconds }`;
 }
 
-export { getCurrentTime };
+export { getCurrentTime }; 
