@@ -31,4 +31,3 @@ program.command('up')
   });
 
 program.parse();
-34
