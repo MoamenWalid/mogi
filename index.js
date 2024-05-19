@@ -20,7 +20,6 @@ program.command('up')
   .option('-b, --branch <branch>', 'name of branch')
   .option('-m, --message <message>', 'message when commit')
   .option('-d, --delete', 'delete branch will make')
-  .option('-f, --finish-push', 'merge and push all changes on basic branch if not found will push on branch created')
   .action(async (obj) => {
     if (!obj.branch) obj.branch = random(8, 'lowernumeric');
     if (!obj.message) await messageToCommit(obj);
