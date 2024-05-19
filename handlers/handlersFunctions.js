@@ -93,12 +93,10 @@ async function mergeAndPushBranch(obj, mainBranch) {
       }
     }
 
-    if (!obj.delete && pushOrNot) {
-      console.log("We don't delete a new branch created");
-    } else {
+    if (obj.delete) {
       await ex(`git branch -d ${ obj.branch }`);
       console.log('Success to delete branch ✅');
-    }
+    } else if (pushOrNot) console.log("We don't delete a new branch created");
   } catch (err) {
     console.error('Wrong Happen!', err.message);
   }
