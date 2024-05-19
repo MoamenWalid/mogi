@@ -9,15 +9,28 @@ Mogi Up is a command-line tool designed to streamline the process of pushing cha
 
 <hr>
 
+### **Installation**
+``npm i mogi -g``
+
 ### **Usage:**
-````
-mogi up: This command automatically creates a new branch and commits the changes with a randomly generated branch name and a message indicating the files changed.
+#### mogi up
+This command automatically creates a new branch and commits the changes with a randomly generated branch name and a message indicating the files changed.
 
-mogi up -b <ref>: Specify a branch name <ref> to create and commit changes to. The commit message will indicate the files changed.
+#### mogi up -b 'branch_name'
+Specify a branch named 'branch_name' to create and commit changes to. The commit message will indicate the files changed.
 
-mogi up -b <ref> -m <message>: Create a branch named <ref> and commit changes with a custom message <message>.
+#### mogi up -m 'message'
+commit changes with a custom message 'message'.
 
-mogi up -d: This option '-d' mean delete a created branch
+#### mogi up -d
+delete a created branch
+
+### **Options to 'mogi up'**
+1) -b -> create new branch or switch to the same branch if found
+  mogi up -b 'branch_name'
+2) -m -> create a new message to commit
+  mogi up -m 'message'
+3) -d -> delete branch after push changes
+  mogi up -d
 
 mogi up enhances your workflow by providing a convenient way to manage your Git branches and commits, making collaboration and version control more efficient.
-````
