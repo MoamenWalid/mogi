@@ -44,13 +44,9 @@ async function pullChangesIfDetected(mainBranch) {
     git.fetch(async (err) => {
       if (err) rej(err);
   
-      // const data = await git.diff(['HEAD', `origin/${ mainBranch }`]);
-      const diffFiles = await ex(`git diff --name-only HEAD origin/${mainBranch}`);
-      const filesChanged = diffFiles.stdout.trim();
-      
-      console.log(filesChanged);
+      const data = await git.diff(['HEAD', `origin/${ mainBranch }`]);
 
-      if (filesChanged) {
+      if (data) {
         console.log('Changes detected. Pull is possible.');
   
         await ex(`git pull --no-ff origin ${ mainBranch }`);
