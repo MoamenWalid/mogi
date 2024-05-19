@@ -9,7 +9,7 @@ const getCurrentTime = () => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
-  return `${ year } / ${ month } / ${ day } in ${ hours }:${ minutes }:${ seconds }`;
+  return `${ year }/${ month }/${ day } in ${ hours }:${ minutes }:${ seconds }`;
 }
 
 export { getCurrentTime };
