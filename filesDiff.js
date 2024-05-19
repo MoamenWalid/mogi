@@ -20,7 +20,6 @@ const messageToCommit = async(obj) => {
     const changes = await filesDiff();
     if (changes.length) obj.message = `files which need to commit: [${changes.join(', ')}], <${obj.branch}> branch, ${ getCurrentTime() }`;
     else obj.message = `Not found any file change!`;
-    console.log(obj.message);
   } catch (err) {
     console.error('Error: ❌', err.message);
   }

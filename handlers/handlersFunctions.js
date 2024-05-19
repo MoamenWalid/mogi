@@ -6,12 +6,14 @@ import { foundBranch } from './foundBranch.js';
 
 const git = simpleGit();
 const ex = promisify(exec);
+let pushOrNot = false;
 
 // Function to handle files change and commit them
 async function handleFilesChangeAndCommit(obj) {
   try {
     const diff = await git.diffSummary();
     if (diff.files.length) {
+      pushOrNot = true;
       console.log(obj);
       console.log('file changes found!');
 
@@ -30,7 +32,7 @@ async function handleFilesChangeAndCommit(obj) {
       console.log(`Success to commit changes as \n'${ obj.message }' ✅`);
   
       console.log('---------Mogi------------');
-    } else throw 'Not found any changes';
+    }
   } catch (err) {
     console.log(err.message);
   }
@@ -78,14 +80,16 @@ async function mergeAndPushBranch(obj, mainBranch) {
     if (!status.conflicted.length) {
       console.log(`Not exist conflict ✅`);
 
-      await ex(`git checkout ${ mainBranch }`);
-      console.log(`Success to checkout to '${ mainBranch }' branch ✅`);
+      if (pushOrNot) {
+        await ex(`git checkout ${ mainBranch }`);
+        console.log(`Success to checkout to '${ mainBranch }' branch ✅`);
 
-      await ex(`git merge ${ obj.branch }`);
-      console.log('Success to merge Data ✅');
+        await ex(`git merge ${ obj.branch }`);
+        console.log('Success to merge Data ✅');
 
-      await ex(`git push -f origin ${ mainBranch }`);
-      console.log('Success to push data ✅');
+        await ex(`git push -f origin ${ mainBranch }`);
+        console.log('Success to push data ✅');
+      }
     }
 
     if (obj.delete) {
