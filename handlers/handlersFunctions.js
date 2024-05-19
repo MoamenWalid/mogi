@@ -78,7 +78,7 @@ async function mergeAndPushBranch(obj, mainBranch) {
   try {
     const status = await git.status();
     if (!status.conflicted.length) {
-      console.log(`Not exist conflict ✅`);
+      console.log(`No exist conflict ✅`);
 
       if (pushOrNot) {
         await ex(`git checkout ${ mainBranch }`);
