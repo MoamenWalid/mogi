@@ -46,6 +46,7 @@ async function pullChangesIfDetected(mainBranch) {
   
       const data = await git.diff(['HEAD', `origin/${ mainBranch }`]);
       if (data) {
+        console.log(data);
         console.log('Changes detected. Pull is possible.');
   
         await ex(`git pull --no-ff origin ${ mainBranch }`);
