@@ -13,7 +13,7 @@ const description = `
 program
   .name('mogi')
   .description(description)
-  .version('1.9.0'); 
+  .version('2.0.0'); 
 
 program.command('up')
   .description('This base command to mogi start')
