@@ -19,7 +19,7 @@ Mogi is a powerful command-line tool designed to streamline your Git workflow by
 Install Mogi globally using npm:
 
 ```bash
-  npm install -g mogi
+npm install -g mogi
 ```
 
 <hr>
@@ -28,28 +28,28 @@ Install Mogi globally using npm:
 ### Basic Commands
 ##### Create a Branch and Commit Changes
 ```bash
-  mogi up
+mogi up
 ```
 
 This command creates a new branch with a randomly generated name and commits the changes with a message indicating the files changed.
 
 ##### Specify a Branch Name
 ```bash
-  mogi up -b 'branch_name'
+mogi up -b 'branch_name'
 ```
 
 Create and commit changes to a branch named branch_name. The commit message will indicate the files changed.
 
 ##### Custom Commit Message
 ```bash
-  mogi up -m 'message'
+mogi up -m 'message'
 ```
 
 Commit changes with a custom message message.
 
 ##### Delete a Branch
 ```bash
-  mogi up -d
+mogi up -d
 ```
 
 ##### Options for mogi up
